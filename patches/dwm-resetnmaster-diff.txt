@@ -1,0 +1,6 @@
+https://dwm.suckless.org/patches/resetnmaster/
+
+Don't add the functions to config.def.h, add them to dwm.c
+
+Order is alphabetical, should go under resetlayout
+Make it static void resetnmaster()
