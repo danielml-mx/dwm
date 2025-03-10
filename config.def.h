@@ -39,11 +39,13 @@ static char *colors[][3] = {
 	/*                    fg           bg           border   */
 	[SchemeNorm] =      { normfgcolor, normbgcolor, normbordercolor },
 	[SchemeSel]  =      { selfgcolor,  selbgcolor,  selbordercolor  },
-	[SchemeStatus]  =   { normfgcolor, normbgcolor, "#000000"  }, // Statusbar right {text,background,not used but cannot be empty}
-	[SchemeTagsSel]  =  { selfgcolor,  selbgcolor,  "#000000"  }, // Tagbar left selected {text,background,not used but cannot be empty}
-	[SchemeTagsNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // Tagbar left unselected {text,background,not used but cannot be empty}
-	[SchemeInfoSel]  =  { selfgcolor,  selbgcolor,  "#000000"  }, // infobar middle  selected {text,background,not used but cannot be empty}
-	[SchemeInfoNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // infobar middle  unselected {text,background,not used but cannot be empty}
+	[SchemeStatus]  =   { normfgcolor, normbgcolor, "#000000"  }, // Statusbar right {text,background,not used}
+	//[SchemeTagsSel]  =  { selfgcolor,  selbgcolor,  "#000000"  }, // Tagbar left selected {text,background,not used}
+	[SchemeTagsSel]  =  { selfgcolor,  selbordercolor,"#000000"  }, // Tagbar left selected {text,background,not used}
+	[SchemeTagsNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // Tagbar left unselected {text,background,not used}
+	//[SchemeInfoSel]  =  { selfgcolor,  selbgcolor,  "#000000"  }, // infobar middle  selected {text,background,not used}
+	[SchemeInfoSel]  =  { selfgcolor,  selbordercolor,"#000000"  }, // infobar middle  selected {text,background,not used}
+	[SchemeInfoNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // infobar middle  unselected {text,background,not used}
 };
 
 static const unsigned int baralpha = 0xd0;
@@ -61,7 +63,7 @@ static const unsigned int alphas[][3]      = {
 
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "󰈹", "", "󰈙", "5", "6", "7", "8", "9" };
 static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 
@@ -197,7 +199,7 @@ static const Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,  {0} },
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
-	{ MODKEY,                       XK_o,      winview,        {0} },
+	{ MODKEY,                       XK_s,      winview,        {0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },

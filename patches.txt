@@ -6,6 +6,7 @@ https://dwm.suckless.org/patches/attachbelow/dwm-attachbelow-6.2.diff
 https://dwm.suckless.org/patches/colorbar/dwm-colorbar-6.3.diff
 https://dwm.suckless.org/patches/cyclelayouts/dwm-cyclelayouts-20180524-6.2.diff
 https://dwm.suckless.org/patches/focusmaster/dwm-focusmaster-return-6.2.diff
+https://dwm.suckless.org/patches/hide_vacant_tags/dwm-hide_vacant_tags-6.4.diff
 https://raw.githubusercontent.com/bakkeby/patches/refs/heads/master/dwm/dwm-vanitygaps-6.4.diff
 https://dwm.suckless.org/patches/movestack/dwm-movestack-20211115-a786211.diff
 https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff
