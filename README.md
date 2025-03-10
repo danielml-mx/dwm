@@ -46,7 +46,6 @@ he establecido.
 |`Mod + Ctrl + H`       |   Ver la anterior etiqueta (n-1)|
 |`Mod + Ctrl + L`       |   Ver la siguiente etiqueta (n+1)|
 |`Mod + S`              |   Ir a la etiqueta de la ventana activa (útil con Mod+0)|
-
 |**Ventanas**
 |`Mod + Shift + [1..9]` |   Enviar la ventana activa a la etiqueta [1..9]|
 |`Mod + J`              |   Cambiar el enfoque a la siguiente ventana|
@@ -62,7 +61,6 @@ he establecido.
 |`Mod + Escape`         |   Restablecer número de ventanas maestras y tamaño de zona maestra (y esquema)|
 |`Mod + Shift + F`      |   Ver la ventana en pantalla completa (fullscreen)|
 |`Mod + X`              |   Cerrar la ventana activa|
-
 |**Esquemas (Layouts)**
 |`Mod + T`              |   Activar esquema `tile` (predeterminado)|
 |`Mod + D`              |   Activar/desactivar esquema `deck`|
@@ -70,7 +68,6 @@ he establecido.
 |`Mod + Plus`           |   Siguiente esquema de la lista|
 |`Mod + Minus`          |   Anterior esquema de la lista|
 |`Mod + Escape`         |   Restablecer esquema (y número de ventanas maestras y tamaño de zona maestra)|
-
 |**Programas y scripts (configurables en config.def.h)**
 |`Alt + Space`          |   Abrir dmenu|
 |`Mod + R`              |   Abrir la terminal|
@@ -85,7 +82,6 @@ he establecido.
 |`Mod + Shift + L`      |   Bloquear pantalla|
 |`Ctrl + Alt + Shift + PgUp`      | Reiniciar|
 |`Ctrl + Alt + Shift + PgDn`      | Apagar|
-
 |**Otros**
 |`Mod + B`              |   Activar/desactivar la barra|
 |`Mod + N`              |   Activar/desactivar las etiquetas alternativas|
