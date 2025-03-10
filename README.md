@@ -49,6 +49,7 @@ he establecido.
 
 ### **Ventanas**
 | Teclas | Descripción |
+|--|--|
 |`Mod + Shift + [1..9]` |   Enviar la ventana activa a la etiqueta [1..9]|
 |`Mod + J`              |   Cambiar el enfoque a la siguiente ventana|
 |`Mod + K`              |   Cambiar el enfoque a la anterior ventana|
@@ -66,6 +67,7 @@ he establecido.
 
 ### **Esquemas (Layouts)**
 | Teclas | Descripción |
+|--|--|
 |`Mod + T`              |   Activar esquema `tile` (predeterminado)|
 |`Mod + D`              |   Activar/desactivar esquema `deck`|
 |`Mod + M`              |   Activar esquema horizontal (`bstackhoriz`)|
@@ -75,6 +77,7 @@ he establecido.
 
 ### **Programas y scripts (configurables en config.def.h)**
 | Teclas | Descripción |
+|--|--|
 |`Alt + Space`          |   Abrir dmenu|
 |`Mod + R`              |   Abrir la terminal|
 |`Mod + W`              |   Abrir el navegador web|
@@ -90,6 +93,7 @@ he establecido.
 |`Ctrl + Alt + Shift + PgDn`      | Apagar|
 
 ### **Otros**
+|--|--|
 | Teclas | Descripción |
 |`Mod + B`              |   Activar/desactivar la barra|
 |`Mod + N`              |   Activar/desactivar las etiquetas alternativas|
