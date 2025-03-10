@@ -3,7 +3,7 @@
 ## Introducción
 
 Este es mi fork personal de [suckless
-dwm](https://dwm.suckless.org/). Incluye un total de 24
+dwm](https://dwm.suckless.org/). Incluye un total de 27
 parches que extienden la funcionalidad de este manejado de
 ventadas rápido y minimalista. Entre las mejores
 modificaciones se encuentran las siguientes:
