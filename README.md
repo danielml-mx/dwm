@@ -37,6 +37,8 @@ he establecido.
 
 ## Combinaciones de teclas (keybindings)
 
+| Teclas | Descripción |
+|--|--|
 |**Etiquetas (Tags)**
 |`Mod + [1..9]`         |   Ver la etiqueta [1..9]|
 |`Mod + Ctrl + [1..9]`  |   Añadir etiqueta [1..9] a la vista|
