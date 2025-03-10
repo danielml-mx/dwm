@@ -23,8 +23,8 @@ static unsigned int gappov    	    = 30;       /* vert outer gap between windows
 static       int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static int showbar                  = 1;        /* 0 means no bar */
 static int topbar                   = 1;        /* 0 means bottom bar */
-#define ICONSIZE 16   /* bar: icon size */
-#define ICONSPACING 5 /* bar: space between icon and title */
+#define ICONSIZE 		      24   	/* icon size */
+#define ICONSPACING 		      10 	/* space between icon and title */
 static const int swallowfloating    = 0;        /* 1 means swallow floating windows by default */
 static const int swterminheritfs    = 1;        /* 1 terminal inherits fullscreen on unswallow, 0 otherwise */
 static const char mainfont[]        = "JetBrainsMono Nerd Font:pixelsize=22:antialias=true:autohint=true";
@@ -63,7 +63,7 @@ static const unsigned int alphas[][3]      = {
 
 
 /* tagging */
-static const char *tags[] = { "", "󰈹", "", "󰈙", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "", "󰈹", "", "", "󰈙", "6", "7", "8", "9" };
 static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 

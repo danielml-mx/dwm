@@ -37,9 +37,7 @@ he establecido.
 
 ## Combinaciones de teclas (keybindings)
 
-### **Etiquetas (Tags)**
-| Teclas | Descripción |
-|--|--|
+|**Etiquetas (Tags)**
 |`Mod + [1..9]`         |   Ver la etiqueta [1..9]|
 |`Mod + Ctrl + [1..9]`  |   Añadir etiqueta [1..9] a la vista|
 |`Mod + 0`              |   Añadir todas las etiquetas a la vista|
@@ -47,9 +45,7 @@ he establecido.
 |`Mod + Ctrl + L`       |   Ver la siguiente etiqueta (n+1)|
 |`Mod + S`              |   Ir a la etiqueta de la ventana activa (útil con Mod+0)|
 
-### **Ventanas**
-| Teclas | Descripción |
-|--|--|
+|**Ventanas**
 |`Mod + Shift + [1..9]` |   Enviar la ventana activa a la etiqueta [1..9]|
 |`Mod + J`              |   Cambiar el enfoque a la siguiente ventana|
 |`Mod + K`              |   Cambiar el enfoque a la anterior ventana|
@@ -65,9 +61,7 @@ he establecido.
 |`Mod + Shift + F`      |   Ver la ventana en pantalla completa (fullscreen)|
 |`Mod + X`              |   Cerrar la ventana activa|
 
-### **Esquemas (Layouts)**
-| Teclas | Descripción |
-|--|--|
+|**Esquemas (Layouts)**
 |`Mod + T`              |   Activar esquema `tile` (predeterminado)|
 |`Mod + D`              |   Activar/desactivar esquema `deck`|
 |`Mod + M`              |   Activar esquema horizontal (`bstackhoriz`)|
@@ -75,9 +69,7 @@ he establecido.
 |`Mod + Minus`          |   Anterior esquema de la lista|
 |`Mod + Escape`         |   Restablecer esquema (y número de ventanas maestras y tamaño de zona maestra)|
 
-### **Programas y scripts (configurables en config.def.h)**
-| Teclas | Descripción |
-|--|--|
+|**Programas y scripts (configurables en config.def.h)**
 |`Alt + Space`          |   Abrir dmenu|
 |`Mod + R`              |   Abrir la terminal|
 |`Mod + W`              |   Abrir el navegador web|
@@ -92,9 +84,7 @@ he establecido.
 |`Ctrl + Alt + Shift + PgUp`      | Reiniciar|
 |`Ctrl + Alt + Shift + PgDn`      | Apagar|
 
-### **Otros**
-|--|--|
-| Teclas | Descripción |
+|**Otros**
 |`Mod + B`              |   Activar/desactivar la barra|
 |`Mod + N`              |   Activar/desactivar las etiquetas alternativas|
 |`Mod + Shift + Q`      |   Cerrar dwm\*\*|
