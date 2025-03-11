@@ -44,11 +44,12 @@ static char *colors[][3] = {
 	[SchemeTagsSel]  =  { selfgcolor,  selbordercolor,"#000000"  }, // Tagbar left selected {text,background,not used}
 	[SchemeTagsNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // Tagbar left unselected {text,background,not used}
 	//[SchemeInfoSel]  =  { selfgcolor,  selbgcolor,  "#000000"  }, // infobar middle  selected {text,background,not used}
-	[SchemeInfoSel]  =  { selfgcolor,  selbordercolor,"#000000"  }, // infobar middle  selected {text,background,not used}
+	[SchemeInfoSel]  =  { normbgcolor, selbordercolor,"#000000"  }, // infobar middle  selected {text,background,not used}
 	[SchemeInfoNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // infobar middle  unselected {text,background,not used}
 };
 
-static const unsigned int baralpha = 0xd0;
+//static const unsigned int baralpha = 0xd0;
+static const unsigned int baralpha = 255;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
@@ -89,6 +90,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+#include "shift-tools.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -168,8 +170,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
 	{ MODKEY|ShiftMask,             XK_j,      movestack,      {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_k,      movestack,      {.i = -1 } },
-	{ MODKEY|ControlMask,		XK_h,      shiftview,	   {.i = -1} },							
-	{ MODKEY|ControlMask,		XK_l,      shiftview,	   {.i = +1} },							
+	{ MODKEY|ControlMask,		XK_h,      shiftviewclients, {.i = -1} },
+	{ MODKEY|ControlMask,		XK_l,      shiftviewclients, {.i = +1} },	
 	{ MODKEY,                       XK_Return, focusmaster,    {0} },
       /*{ MODKEY|ALTKEY,              XK_u,      incrgaps,       {.i = +1 } },
 	{ MODKEY|ALTKEY|ShiftMask,    XK_u,      incrgaps,       {.i = -1 } },

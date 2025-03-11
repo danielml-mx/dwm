@@ -22,4 +22,4 @@ https://dwm.suckless.org/patches/winicon/dwm-winicon-6.3-v2.1.diff
 https://dwm.suckless.org/patches/winview/dwm-6.0-winview.diff
 https://dwm.suckless.org/patches/xresources/dwm-xresources-6.2.diff
 https://dwm.suckless.org/patches/zoomswap/dwm-zoomswap-6.2.diff
-https://raw.githubusercontent.com/chau-bao-long/dotfiles/refs/heads/master/suckless/dwm/shiftview.diff
+https://dwm.suckless.org/patches/shift-tools/shift-tools.c
