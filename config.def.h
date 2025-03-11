@@ -48,18 +48,18 @@ static char *colors[][3] = {
 	[SchemeInfoNorm]  = { normfgcolor, normbgcolor, "#000000"  }, // infobar middle  unselected {text,background,not used}
 };
 
-//static const unsigned int baralpha = 0xd0;
-static const unsigned int baralpha = 255;
+static const unsigned int baralpha = OPAQUE;
+static const unsigned int sidebaralpha = 0xd0;
 static const unsigned int borderalpha = OPAQUE;
 static const unsigned int alphas[][3]      = {
     /*               fg      bg        border*/
-    [SchemeNorm] = { OPAQUE, baralpha, borderalpha },
-    [SchemeSel]  = { OPAQUE, baralpha, borderalpha },
-    [SchemeStatus]  =   { OPAQUE, baralpha, borderalpha },
-    [SchemeTagsSel]  =  { OPAQUE, baralpha, borderalpha },
-    [SchemeTagsNorm]  = { OPAQUE, baralpha, borderalpha },
-    [SchemeInfoSel]  =  { OPAQUE, baralpha, borderalpha },
-    [SchemeInfoNorm]  = { OPAQUE, baralpha, borderalpha },
+    [SchemeNorm]      = { OPAQUE, baralpha, borderalpha },
+    [SchemeSel]       = { OPAQUE, baralpha, borderalpha },
+    [SchemeStatus]    = { OPAQUE, sidebaralpha, borderalpha },
+    [SchemeTagsSel]   = { OPAQUE, baralpha, borderalpha },
+    [SchemeTagsNorm]  = { OPAQUE, sidebaralpha, borderalpha },
+    [SchemeInfoSel]   = { OPAQUE, baralpha, borderalpha },
+    [SchemeInfoNorm]  = { OPAQUE, sidebaralpha, borderalpha },
 };
 
 
@@ -192,8 +192,9 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             		XK_x,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
 	{ MODKEY,                       XK_d,      setlayouttoggle,{.v = &layouts[4]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[6]} },
+	{ MODKEY,                       XK_v,      setlayouttoggle,{.v = &layouts[6]} },
 	{ MODKEY,			XK_minus,  cyclelayout,    {.i = -1 } },
 	{ MODKEY,           		XK_plus,   cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
