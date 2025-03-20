@@ -2269,28 +2269,16 @@ void
 toggleview(const Arg *arg)
 {
 	unsigned int newtagset = selmon->tagset[selmon->seltags] ^ (arg->ui & TAGMASK);
-	Client *const selected = selmon->sel;
 	int i;
 
-	// clients in the master area should be the same after we add a new tag
-	Client **const masters = calloc(selmon->nmaster, sizeof(Client *));
-	if (!masters) {
-		die("fatal: could not calloc() %u bytes \n", selmon->nmaster * sizeof(Client *));
-	}
-	// collect (from last to first) references to all clients in the master area
-	Client *c;
-	size_t t;
-	for (c = nexttiled(selmon->clients), t = 0; c && t < selmon->nmaster; c = nexttiled(c->next), ++i)
-		masters[selmon->nmaster - (t + 1)] = c;
-	// put the master clients at the front of the list
-	// > go from the 'last' master to the 'first'
-	for (size_t t = 0; t < selmon->nmaster; ++t)
-		if (masters[t])
-			pop(masters[t]);
-	free(masters);
-
+	// the first visible client should be the same after we add a new tag
 	// we also want to be sure not to mutate the focus
-	focus(selected);
+	Client *const c = nexttiled(selmon->clients);
+	if (c) {
+		Client * const selected = selmon->sel;
+		pop(c);
+		focus(selected);
+	}
 
 	if (newtagset) {
 		if (newtagset == ~0) {
