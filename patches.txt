@@ -16,7 +16,7 @@ https://dwm.suckless.org/patches/resetlayout/dwm-resetlayout-6.2.diff
 https://dwm.suckless.org/patches/resetnmaster/dwm-resetnmaster-pertag-6.3.diff
 https://dwm.suckless.org/patches/resizecorners/dwm-resizecorners-6.5.diff
 https://github.com/bakkeby/patches/raw/refs/heads/master/dwm/dwm-swallow-6.5.diff
-https://dwm.suckless.org/patches/tagintostack/dwm-6.1-tagintostack-allmaster.diff
+https://dwm.suckless.org/patches/tagintostack/dwm-6.2-tagintostack-onemaster.diff
 https://raw.githubusercontent.com/bakkeby/patches/refs/heads/master/dwm/dwm-pertag-togglelayout-6.5.diff
 https://dwm.suckless.org/patches/winicon/dwm-winicon-6.3-v2.1.diff
 https://dwm.suckless.org/patches/winview/dwm-6.0-winview.diff

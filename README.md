@@ -3,7 +3,7 @@
 ## Introducción
 
 Esta es mi versión personal de [suckless
-dwm](https://dwm.suckless.org/). Incluye un total de 27
+dwm](https://dwm.suckless.org/). Incluye un total de 25
 parches que extienden la funcionalidad de este rápido y
 minimalista manejador de ventanas. Entre las mejores
 modificaciones se encuentran las siguientes:
@@ -64,6 +64,8 @@ he establecido.
   conflicto con el parche de `resetlayout`. En en archivo de
   configuración hago la llamada a `setlayouttoggle` explícitamente para los
   esquemas para los que quiero que el alternado aplique.
+  Esto último en realidad lo hago más que nada para tener un
+  flujo de trabajo en torno al esquema `deck`.
 
 ### dwm-resetnmaster-pertag-6.3
 - Restablece la cantidad de ventanas en la zona maestra con
@@ -92,6 +94,13 @@ he establecido.
   agrado. Quizá después lo modifique para que al menos la
   zona maestra sí se restablezca.
 - Combinación predeterminada: `Mod + Escape`
+
+### dwm-focusmaster-return-6.2
+- Desde cualquier ventana, regresa el enfoque a la ventana
+  maestra a través de una combinación de teclas. Si la
+  ventana maestra está enfocada, enfoca la última ventana
+  desde la cual se hizo el salto.
+- Combinación predeterminada: `Mod + Enter`
 
 ### dwm-zoomswap-6.2
 - Cambiar la ventana activa con la ventana maestra con una
@@ -133,6 +142,9 @@ he establecido.
   etiquetas, los cuales pueden ser activados a través de una
   combinación de teclas.
 - Combinación predeterminada: `Mod + N`
+
+### dwm-hide_vacant_tags-6.4
+- Omite las etiquetas que no tienen ventanas de la barra.
 
 ### dwm-xresources-6.2
 - Permite configurar ciertos aspectos de la configuración a
