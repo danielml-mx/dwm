@@ -1,5 +1,7 @@
 # dwm - dynamic window manager
 
+![screenshot-032125-152009](https://github.com/user-attachments/assets/b0209cfd-f026-4094-9b32-742d3ff4616b)
+
 ## Introducción
 
 Esta es mi versión personal de [suckless
