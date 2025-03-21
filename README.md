@@ -187,6 +187,11 @@ he establecido.
   `gappoh`, `gappov` y `smartgaps`) para que sean
   configurables a través de Xresources.
 
+### dwm-monocle-patch.c
+- Añade los espacios al esquema `monocle`.
+- Dado que este archivo no es un parche, añadí la
+  nueva función `monocle` a `vanitygaps.c` y comenté la
+  original en el archivo `dwm.c`.
 
 ### shift-tools.c
 - Permite ver la anterior/siguiente etiqueta que tenga
@@ -229,7 +234,8 @@ he establecido.
 |**Esquemas (Layouts)**
 |`Mod + T`              |   Activar esquema `tile` (predeterminado)|
 |`Mod + D`              |   Activar/desactivar esquema `deck`|
-|`Mod + M`              |   Activar esquema horizontal (`bstackhoriz`)|
+|`Mod + M`              |   Activar esquema `monocle`|
+|`Mod + V`              |   Activar/desactivar esquema horizontal (`bstackhoriz`)|
 |`Mod + Plus`           |   Siguiente esquema de la lista|
 |`Mod + Minus`          |   Anterior esquema de la lista|
 |`Mod + Escape`         |   Restablecer esquema (y número de ventanas maestras y tamaño de zona maestra)|
