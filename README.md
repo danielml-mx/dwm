@@ -2,18 +2,17 @@
 
 ## Introducción
 
-Esta es mi fork personal de [suckless
+Esta es mi versión personal de [suckless
 dwm](https://dwm.suckless.org/). Incluye un total de 27
 parches que extienden la funcionalidad de este rápido y
 minimalista manejador de ventanas. Entre las mejores
 modificaciones se encuentran las siguientes:
 
-- Espacios entre las ventanas (gaps)
-- 14 esquemas (layouts) con soporte de gaps
-- Las nuevas ventanas se añaden debajo de la activa
-  (attachbelow)
-- Uso eficiente de ventanas de terminal (window swallowing)
-- Configuración estética a través de Xresources
+- 14 esquemas con soporte para espacios entre ventanas
+- Configuración estética y dinámica a través de Xresources
+- Modularidad en el uso de programas preferidos
+- Diseño intuitivo basado en las combinaciones de teclas de
+  Vim
 
 Debajo se encuentra una lista exhaustiva de todos los
 parches aplicados y de las funciones que proveen.
@@ -36,7 +35,7 @@ para quienes quieran hacer modificaciones extensas a sus
 combinaciones de teclas y no prefieren utilizar las que yo
 he establecido.
 
-## Parches
+## Funcionalidad y parches 
 
 ### dwm-alwayscenter
 - Todas las ventanas flotantes se generan en el centro de la
@@ -45,51 +44,150 @@ he establecido.
 ### dwm-noborderfloatingfix
 - Si sólo hay una ventana visible, esta no tendrá borde.
 
-### dwm-6.1-tagintostack-allmaster
-- Cuando se activa la vista de dos tags, mantén la ventana
-  maestra en su lugar. (Desafortunadamente, no se mantiene)
+### dwm-6.3-tagintostack-onemaster
+- Cuando se activa la vista de varios tags, mantén la ventana
+  maestra en su lugar.
 
-dwm-pertag-6.5.diff
-    -A pesar de ser de mayor tamaño, se aplica antes porque
-    otros parches comienzan a depender de ella. También tuve
-    que hacer una modificación pues tagintostack maneja una
-    variable del mismo nombre en la misma función.
-dwm-pertag-togglelayout-6.5.diff
-    -Aplicada algo manualmente. Dejé la función
-    setlayout intacta y los cambios los puse en una
-    función que llamé setlayouttoggle, a fin de que este
-    parche no cause conflicto con el parche de
-    resetlayout. En config.def.h, hago la llamada a
-    setlayouttoggle explícitamente para los layouts que
-    quiero que el toggle aplique.
-dwm-resetnmaster-pertag-6.3.diff
-dwm-6.0-winview.diff
-dwm-actualfullscreen-20211013-cb3f58a.diff
-dwm-resetlayout-6.2.diff
-    -La parte del código que resetea el layout cuando queda
-    una sola ventana en vista ha sido comentada, pues este
-    comportamiento no es de mi agrado.
-dwm-zoomswap-6.2.diff
-dwm-resizecorners-6.5.diff
-dwm-cyclelayouts-20180524-6.2.diff
-dwm-attachbelow-6.2.diff
-dwm-movestack-20211115-a786211.diff
-dwm-colorbar-6.3.diff
-dwm-preserveonrestart-6.3.diff
-dwm-alternativetags-6.3.diff
-dwm-canfocusfloating-20210724-b914109.diff
-dwm-xresources-6.2.diff
-dwm-alpha-20230401-348f655.diff
-    -Cambios hechos según [esta publicación](https://www.reddit.com/r/suckless/comments/spdfwn/dwm_alpha_and_colorbar_patch_issue/)
-    para que sea compatible con el parche de colorbar.
-dwm-winicon-6.3-v2.1.diff
-    -Cambios hechos según [la
-    documentación](https://dwm.suckless.org/patches/winicon/)
-    para que sea compatible con el parche de alpha.
-dwm-swallow-6.5.diff
-dwm-vanitygaps-6.4.diff
-shiftview.diff
-    -Keybindings añadidos manualmente a config.def.h
+### dwm-pertag-6.5
+- El esquema (layout), el tamaño de la zona maestra (mfact)
+  y si la barra está activa o no son atributos
+  independientes para cada etiqueta.
+
+### dwm-pertag-togglelayout-6.5
+- Los esquemas activados a través de una combinación de
+  teclas pueden ser "desactivados" al volver a presionar la
+  misma combinación (alterna al esquema anterior).
+- La implementación de esta funcionalidad fue extensamente
+  modificada. Dejé la función `setlayout` intacta y los
+  cambios los puse en una función que llamé
+  `setlayouttoggle`, a fin de que este parche no cause
+  conflicto con el parche de `resetlayout`. En en archivo de
+  configuración hago la llamada a `setlayouttoggle` explícitamente para los
+  esquemas para los que quiero que el alternado aplique.
+
+### dwm-resetnmaster-pertag-6.3
+- Restablece la cantidad de ventanas en la zona maestra con
+  una combinación de teclas.
+- Combinación predeterminada: `Mod + Escape`
+
+### dwm-6.0-winview
+- Cuando se están visualizando varias etiquetas, se puede
+  utilizar una combinación de teclas para ir al esquema de
+  la ventana activa.
+- Combinación predeterminada: `Mod + S`
+
+### dwm-actualfullscreen-20211013-cb3f58a
+- Implementa correctamente la funcionalidad de visualizar
+  una pantalla en modo completo a través de una combinación
+  de teclas.
+- Combinación predeterminada: `Mod + Shift + S`
+
+### dwm-resetlayout-6.2
+- Restablece el esquema y el tamaño de la zona maestra a
+  través de una combinación de teclas o bien cuando sólo
+  haya una ventana en la etiqueta.
+- La parte del código que restablece el esquema (y el tamaño
+  de la zona maestra) cuando queda una sola ventana en vista
+  ha sido comentada, pues este comportamiento no es de mi
+  agrado. Quizá después lo modifique para que al menos la
+  zona maestra sí se restablezca.
+- Combinación predeterminada: `Mod + Escape`
+
+### dwm-zoomswap-6.2
+- Cambiar la ventana activa con la ventana maestra con una
+  combinación de teclas.
+- Combinación predeterminada: `Mod + Shift + Enter`
+
+### dwm-resizecorners-6.5
+- Las ventanas flotantes pueden ser [reajustadas] desde
+  cualquier esquina, no sólo la inferior derecha.
+
+### dwm-cyclelayouts-20180524-6.2
+- Añade la posibilidad de alternar entre esquemas según la
+  lista establecida en la configuración.
+- Combinación predeterminada: 
+    - Siguiente esquema: `Mod + Plus`
+    - Anterior esquema: `Mod + Minus`
+
+### dwm-attachbelow-6.2
+- Las nuevas ventanas se generarán debajo de la activa en la
+  jerarquía.
+
+### dwm-movestack-20211115-a786211
+- Introduce combinaciones de teclas para mover la ventana
+  seleccionada a través de la jerarquía.
+- Combinación predeterminada: 
+    - Decrementar: `Mod + Shift + J`
+    - Incrementar: `Mod + Shift + H`
+
+### dwm-colorbar-6.3
+- Expande la configurabilidad de los colores de la barra,
+  permitiendo configurar cada sección por separado.
+
+### dwm-preserveonrestart-6.3
+- Al reiniciar, las ventanas se mantendrán en sus
+  respectivas etiquetas.
+
+### dwm-alternativetags-6.3
+- Permite establecer un segundo arreglo de nombres para las
+  etiquetas, los cuales pueden ser activados a través de una
+  combinación de teclas.
+- Combinación predeterminada: `Mod + N`
+
+### dwm-xresources-6.2
+- Permite configurar ciertos aspectos de la configuración a
+  través del protocolo de Xresources.
+- He expandido un poco lo que se puede configurar a través
+  de Xresources, sin embargo lo he limitado a cuestiones
+  exclusivamente estéticas.
+
+### dwm-alpha-20230401-348f655
+- Añade la propiedad de transparencia a la barra.
+- Algunos cambios se hicieron según [esta
+  publicación](https://www.reddit.com/r/suckless/comments/spdfwn/dwm_alpha_and_colorbar_patch_issue/)
+  para que sea compatible con el parche de `colorbar`.
+
+### dwm-winicon-6.3-v2.1
+- Añade un ícono de programa a la barra.
+- Cambios hechos según [la
+  documentación](https://dwm.suckless.org/patches/winicon/)
+  para que sea compatible con el parche de `alpha`.
+
+### dwm-swallow-6.5
+- Optimiza el uso del espacio en pantalla al "devorar" las
+  ventanas generadas por las terminales declaradas en la
+  configuración.
+
+### dwm-vanitygaps-6.4
+- Añade propiedades para controlar los espacios externos e
+  internos, verticales y horizontales entre las ventanas y
+  las esquinas de la pantalla para 14 esquemas compatibles.
+  Añade además combinaciones de teclas para
+  incrementar/decrementar estos espacios durante la
+  ejecución, o bien para restablecerlos a su valor
+  predeterminado o desactivarlos.
+- La verdad nunca me he visto en la necesidad de incrementar
+  o decrementar los espacios dinámicamente, por lo cual he
+  comentado todas las combinaciones de teclas relacionadas a
+  ello.
+- He modificado las variables que controlan el tamaño y
+  comportamiento de los espacios (`gappih`, `gappiv`,
+  `gappoh`, `gappov` y `smartgaps`) para que sean
+  configurables a través de Xresources.
+
+
+### shift-tools.c
+- Permite ver la anterior/siguiente etiqueta que tenga
+  ventanas.
+- Las combinaciones de teclas fueron añadidas manualmente al
+  archivo de configuración.
+- Combinación predeterminada:
+    - Anterior etiqueta (con ventanas): `Mod + Ctrl + H`
+    - Siguiente etiqueta (con ventanas): `Mod + Ctrl + L`
+- En realidad este parche puede hacer muchas cosas más, pero
+  me he acostumbrado a sólo cambiar entre las etiquetas con
+  ventanas.
+
 ## Combinaciones de teclas (keybindings)
 
 | Teclas | Descripción |
@@ -98,8 +196,8 @@ shiftview.diff
 |`Mod + [1..9]`         |   Ver la etiqueta [1..9]|
 |`Mod + Ctrl + [1..9]`  |   Añadir etiqueta [1..9] a la vista|
 |`Mod + 0`              |   Añadir todas las etiquetas a la vista|
-|`Mod + Ctrl + H`       |   Ver la anterior etiqueta (n-1)|
-|`Mod + Ctrl + L`       |   Ver la siguiente etiqueta (n+1)|
+|`Mod + Ctrl + H`       |   Ver la anterior etiqueta (que tenga ventanas) (n-1)|
+|`Mod + Ctrl + L`       |   Ver la siguiente etiqueta (que tenga ventanas) (n+1)|
 |`Mod + S`              |   Ir a la etiqueta de la ventana activa (útil con Mod+0)|
 |**Ventanas**
 |`Mod + Shift + [1..9]` |   Enviar la ventana activa a la etiqueta [1..9]|
@@ -108,7 +206,7 @@ shiftview.diff
 |`Mod + Shift + J`      |   Mover la ventana activa al siguiente lugar|
 |`Mod + Shift + K`      |   Mover la ventana activa al anterior lugar|
 |`Mod + Enter`          |   Alternar enfoque hacia la ventana maestra|
-|`Mod + Shift + Enter`  |   Alternar posición con la ventana maestra|
+|`Mod + Shift + Enter`  |   Alternar posición con la ventana maestra |
 |`Mod + H`              |   Decrementar tamaño de zona maestra (mfact)|
 |`Mod + L`              |   Aumentar tamaño de zona maestra (mfact)|
 |`Mod + }`              |   Eliminar una ventana de la zona maestra|
