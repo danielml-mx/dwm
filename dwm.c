@@ -1021,6 +1021,8 @@ focusmaster(const Arg *arg)
 		selmon->tagmarked[i] = selmon->sel;
 		focus(master);
 	}
+
+	restack(selmon);
 }
 
 void

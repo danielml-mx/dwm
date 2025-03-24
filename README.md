@@ -102,6 +102,10 @@ he establecido.
   maestra a través de una combinación de teclas. Si la
   ventana maestra está enfocada, enfoca la última ventana
   desde la cual se hizo el salto.
+- Le hice unas ligeras modificaciones al código al llamar
+  `restack()` cuando se hace la combinación de teclas, cosa
+  que obliga a que el cliente enfocado siempre esté por
+  encima del resto de las ventanas.
 - Combinación predeterminada: `Mod + Enter`
 
 ### dwm-zoomswap-6.2
