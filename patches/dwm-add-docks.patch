@@ -1,0 +1,263 @@
+# HG changeset patch
+# User Christoph Lohmann <20h@r-36.net>
+# Date 1318186431 -7200
+# Node ID cb2ba6763beb10359b47629fc18fa8d11c8058c5
+# Parent  b899c874893992a70e1017f4c29f64a5de471377
+Adding docking support for dwm.
+
+diff --git a/dwm.c b/dwm.c
+--- a/dwm.c
++++ b/dwm.c
+@@ -58,7 +58,8 @@
+ enum { CurNormal, CurResize, CurMove, CurLast };        /* cursor */
+ enum { ColBorder, ColFG, ColBG, ColLast };              /* color */
+ enum { NetSupported, NetWMName, NetWMState,
+-       NetWMFullscreen, NetActiveWindow, NetLast };     /* EWMH atoms */
++       NetWMFullscreen, NetActiveWindow, NetWMWindowType,
++       NetWMWindowTypeDock, NetLast };     /* EWMH atoms */
+ enum { WMProtocols, WMDelete, WMState, WMTakeFocus, WMLast }; /* default atoms */
+ enum { ClkTagBar, ClkLtSymbol, ClkStatusText, ClkWinTitle,
+        ClkClientWin, ClkRootWin, ClkLast };             /* clicks */
+@@ -88,7 +89,9 @@
+ 	int basew, baseh, incw, inch, maxw, maxh, minw, minh;
+ 	int bw, oldbw;
+ 	unsigned int tags;
+-	Bool isfixed, isfloating, isurgent, neverfocus, oldstate, isfullscreen;
++	unsigned int isdock;
++	Bool isfixed, isfloating, isurgent, neverfocus, oldstate, \
++		isfullscreen;
+ 	Client *next;
+ 	Client *snext;
+ 	Monitor *mon;
+@@ -231,10 +234,12 @@
+ static void unmapnotify(XEvent *e);
+ static Bool updategeom(void);
+ static void updatebarpos(Monitor *m);
++static void updatedocks(Monitor *m);
+ static void updatebars(void);
+ static void updatenumlockmask(void);
+ static void updatesizehints(Client *c);
+ static void updatestatus(void);
++static void updatewindowtype(Client *c);
+ static void updatetitle(Client *c);
+ static void updatewmhints(Client *c);
+ static void view(const Arg *arg);
+@@ -735,6 +740,8 @@
+ 	Client *c;
+ 
+ 	for(c = m->clients; c; c = c->next) {
++		if(c->isdock)
++			continue;
+ 		occ |= c->tags;
+ 		if(c->isurgent)
+ 			urg |= c->tags;
+@@ -774,6 +781,7 @@
+ 			drawtext(NULL, dc.norm, False);
+ 	}
+ 	XCopyArea(dpy, dc.drawable, m->barwin, dc.gc, 0, 0, m->ww, bh, 0, 0);
++
+ 	XSync(dpy, False);
+ }
+ 
+@@ -904,17 +912,20 @@
+ 	if(!selmon->sel)
+ 		return;
+ 	if(arg->i > 0) {
+-		for(c = selmon->sel->next; c && !ISVISIBLE(c); c = c->next);
+-		if(!c)
+-			for(c = selmon->clients; c && !ISVISIBLE(c); c = c->next);
++		for(c = selmon->sel->next; c && (!ISVISIBLE(c) \
++				|| c->isdock); c = c->next);
++		if(!c) {
++			for(c = selmon->clients; c && (!ISVISIBLE(c) \
++					|| c->isdock); c = c->next);
++		}
+ 	}
+ 	else {
+ 		for(i = selmon->clients; i != selmon->sel; i = i->next)
+-			if(ISVISIBLE(i))
++			if(ISVISIBLE(i) && !i->isdock)
+ 				c = i;
+ 		if(!c)
+ 			for(; i; i = i->next)
+-				if(ISVISIBLE(i))
++				if(ISVISIBLE(i) && !i->isdock)
+ 					c = i;
+ 	}
+ 	if(c) {
+@@ -1122,6 +1133,8 @@
+ 	c->w = c->oldw = wa->width;
+ 	c->h = c->oldh = wa->height;
+ 	c->oldbw = wa->border_width;
++
++	c->isdock = 0;
+ 	if(c->w == c->mon->mw && c->h == c->mon->mh) {
+ 		c->isfloating = True; // regression with flash, XXXX
+ 		c->x = c->mon->mx;
+@@ -1158,6 +1171,7 @@
+ 	if (c->mon == selmon)
+ 		unfocus(selmon->sel, False);
+ 	c->mon->sel = c;
++	updatewindowtype(c);
+ 	arrange(c->mon);
+ 	XMapWindow(dpy, c->win);
+ 	focus(NULL);
+@@ -1256,7 +1270,7 @@
+ 
+ Client *
+ nexttiled(Client *c) {
+-	for(; c && (c->isfloating || !ISVISIBLE(c)); c = c->next);
++	for(; c && (c->isfloating || !ISVISIBLE(c) || c->isdock); c = c->next);
+ 	return c;
+ }
+ 
+@@ -1299,6 +1313,8 @@
+ 			if(c == c->mon->sel)
+ 				drawbar(c->mon);
+ 		}
++		if(ev->atom == netatom[NetWMWindowType])
++			updatewindowtype(c);
+ 	}
+ }
+ 
+@@ -1553,6 +1569,8 @@
+ 	netatom[NetWMName] = XInternAtom(dpy, "_NET_WM_NAME", False);
+ 	netatom[NetWMState] = XInternAtom(dpy, "_NET_WM_STATE", False);
+ 	netatom[NetWMFullscreen] = XInternAtom(dpy, "_NET_WM_STATE_FULLSCREEN", False);
++	netatom[NetWMWindowType] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE", False);
++	netatom[NetWMWindowTypeDock] = XInternAtom(dpy, "_NET_WM_WINDOW_TYPE_DOCK", False);
+ 	/* init cursors */
+ 	cursor[CurNormal] = XCreateFontCursor(dpy, XC_left_ptr);
+ 	cursor[CurResize] = XCreateFontCursor(dpy, XC_sizing);
+@@ -1740,6 +1758,8 @@
+ 	/* The server grab construct avoids race conditions. */
+ 	detach(c);
+ 	detachstack(c);
++	if(c->isdock)
++		updatebarpos(m);
+ 	if(!destroyed) {
+ 		wc.border_width = c->oldbw;
+ 		XGrabServer(dpy);
+@@ -1797,6 +1817,75 @@
+ 	}
+ 	else
+ 		m->by = -bh;
++
++	updatedocks(m);
++}
++
++void
++updatedocks(Monitor *m) {
++	Client *c;
++
++	m->wx = m->mx;
++	m->ww = m->mw;
++
++	for(c = m->clients; c; c = c->next) {
++		if(!c->isdock)
++			continue;
++
++		/* Decide about where to position the dock. */
++		if(c->isdock == 1) {
++			if(c->w / c->h >= 1) {
++				/* horizontal */
++				if(c->y < m->mh / 2) {
++					/* top */
++					c->isdock = 2;
++				}
++				else {
++					/* bottom */
++					c->isdock = 3;
++				}
++			}
++			else {
++				/* vertical */
++				if(c->x < m->mw / 2) {
++					/* left */
++					c->isdock = 4;
++				}
++				else {
++					/* right */
++					c->isdock = 5;
++				}
++			}
++		}
++
++		switch(c->isdock) {
++		case 2:
++			/* top */
++			resize(c, m->wx, m->wy, m->ww, c->h, True);
++			m->wy += c->h;
++			m->wh -= c->h;
++			break;
++		default:
++		case 3:
++			/* bottom */
++			resize(c, m->wx, m->wy + m->wh - c->h, m->ww, \
++					c->h, True);
++			m->wh -= c->h;
++			break;
++		case 4:
++			/* left */
++			resize(c, m->wx, m->wy, c->w, m->wh, True);
++			m->wx += c->w;
++			m->ww -= c->w;
++			break;
++		case 5:
++			/* right */
++			resize(c, m->wx + m->ww - c->w, m->wy, c->w, \
++					m->wh, True);
++			m->ww -= c->w;
++			break;
++		}
++	}
+ }
+ 
+ Bool
+@@ -1871,13 +1960,14 @@
+ 			dirty = True;
+ 			mons->mw = mons->ww = sw;
+ 			mons->mh = mons->wh = sh;
+-			updatebarpos(mons);
+ 		}
+ 	}
+ 	if(dirty) {
+ 		selmon = mons;
+ 		selmon = wintomon(root);
+ 	}
++
++	updatebarpos(mons);
+ 	return dirty;
+ }
+ 
+@@ -1947,6 +2037,29 @@
+ }
+ 
+ void
++updatewindowtype(Client *c)
++{
++	Atom wtype, real;
++	int format;
++	unsigned long n, extra;
++	unsigned char *p = NULL;
++
++	if(XGetWindowProperty(dpy, c->win, netatom[NetWMWindowType], 0L,
++				sizeof(Atom), False, XA_ATOM, &real, &format,
++				&n, &extra, (unsigned char **)&p) == Success
++			&& p) {
++		wtype = *(Atom *)p;
++		XFree(p);
++
++		if(wtype == netatom[NetWMWindowTypeDock]) {
++			c->isdock = 1;
++			c->tags = 0xFFFFFFFF;
++			updatebarpos(c->mon);
++		}
++	}
++}
++
++void
+ updatetitle(Client *c) {
+ 	if(!gettextprop(c->win, netatom[NetWMName], c->name, sizeof c->name))
+ 		gettextprop(c->win, XA_WM_NAME, c->name, sizeof c->name);
+

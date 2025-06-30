@@ -211,6 +211,14 @@ he establecido.
   me he acostumbrado a sólo cambiar entre las etiquetas con
   ventanas.
 
+### dwm-add-docks.patch
+- Parche muy oscuro, recuperado de las conversaciones de
+  correo de los diseñadores de hace unos años.
+- Añade la función de tener ventanas "docks", de tal manera
+  que el resto de las ventanas se acomodan a estas.
+- Este parche fue añadido para poder tener un teclado
+  virtual.
+
 ## Combinaciones de teclas (keybindings)
 
 | Teclas | Descripción |

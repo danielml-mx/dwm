@@ -64,7 +64,7 @@ static const unsigned int alphas[][3]      = {
 
 
 /* tagging */
-static const char *tags[] = { "", "󰭹", "󰈹", "", "󰈙", "󰐨", "", "󰕧", "󰩹" };
+static const char *tags[] = { "", "󰈹", "", "󰈙", "󰐨", "", "󰕧", "󰩹", "" };
 static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
 static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 
@@ -189,12 +189,13 @@ static const Key keys[] = {
 	{ MODKEY|ALTKEY|ShiftMask,    XK_9,      incrovgaps,     {.i = -1 } },
 	{ MODKEY|ALTKEY,              XK_0,      togglegaps,     {0} },
 	{ MODKEY|ALTKEY|ShiftMask,    XK_0,      defaultgaps,    {0} },*/
-	{ MODKEY,                       XK_Tab,    view,           {0} },
+      //{ MODKEY,                       XK_Tab,    view,           {0} },
 	{ MODKEY,             		XK_x,      killclient,     {0} },
 	{ MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,                       XK_m,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,                       XK_m,      setlayouttoggle,{.v = &layouts[1]} },
 	{ MODKEY,                       XK_d,      setlayouttoggle,{.v = &layouts[4]} },
 	{ MODKEY,                       XK_v,      setlayouttoggle,{.v = &layouts[6]} },
+	{ MODKEY,                       XK_Tab,    setlayouttoggle,{.v = &layouts[7]} },
 	{ MODKEY,			XK_minus,  cyclelayout,    {.i = -1 } },
 	{ MODKEY,           		XK_plus,   cyclelayout,    {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
