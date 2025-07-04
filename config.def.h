@@ -241,7 +241,9 @@ static const Key keys[] = {
 	{ 0, XF86XK_AudioPlay,		   spawn, 	   SHCMD("playerctl play-pause") },
 	{ MODKEY, 	XK_Down,   	   spawn, 	   SHCMD("playerctl play-pause") },
 	{ 0, XF86XK_AudioPrev, 		   spawn,	   SHCMD("playerctl previous") },
+	{ MODKEY, 	XK_Left,   	   spawn, 	   SHCMD("playerctl previous") },
 	{ 0, XF86XK_AudioNext,		   spawn,	   SHCMD("playerctl next") },
+	{ MODKEY, 	XK_Right,   	   spawn, 	   SHCMD("playerctl next") },
 };
 
 /* button definitions */
