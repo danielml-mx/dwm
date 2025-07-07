@@ -5,7 +5,7 @@
 ## Introducción
 
 Esta es mi versión personal de [suckless
-dwm](https://dwm.suckless.org/). Incluye un total de 26
+dwm](https://dwm.suckless.org/). Incluye un total de 29
 parches que extienden la funcionalidad de este rápido y
 minimalista manejador de ventanas. Entre las mejores
 modificaciones se encuentran las siguientes:
@@ -218,6 +218,18 @@ he establecido.
   que el resto de las ventanas se acomodan a estas.
 - Este parche fue añadido para poder tener un teclado
   virtual.
+
+### dwm-status2d-barpadding
+- Parche que aplica dos al mismo tiempo.
+- status2d: permite crear figuras coloradas en la barra
+- barpadding: añade espacios configurables entre las
+  esquinas de la pantalla y la barra
+
+### dwm-statuscmd-status2d
+- En resumen, mejora la manera en la cual dwm maneja los
+  clicks en la barra, de tal manera que se pueden configurar
+  diferentes acciones por regiones en las cuales se da
+  click.
 
 ## Combinaciones de teclas (keybindings)
 
