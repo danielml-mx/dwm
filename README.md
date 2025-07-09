@@ -5,7 +5,7 @@
 ## Introducción
 
 Esta es mi versión personal de [suckless
-dwm](https://dwm.suckless.org/). Incluye un total de 29
+dwm](https://dwm.suckless.org/). Incluye un total de 30
 parches que extienden la funcionalidad de este rápido y
 minimalista manejador de ventanas. Entre las mejores
 modificaciones se encuentran las siguientes:
