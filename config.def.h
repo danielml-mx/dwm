@@ -8,6 +8,7 @@
 #define EMOJI_SCRIPT "~/.local/bin/emoji-selector"
 #define SCREENSHOT_SCRIPT "~/.local/bin/screenshot"
 #define PASSWORD_MANAGER_SCRIPT "~/.local/bin/passmenu-custom --type -c -l 20 -p '🔑: '"
+#define MONITOR_MANAGER_SCRIPT "~/.local/bin/monitor-manager"
 #define EXECUTE_SCRIPTS_SCRIPT "~/.local/bin/scripts"
 #define RECORD_SCRIPT "~/.local/bin/record"
 #define REBOOT_SCRIPT "sudo reboot"
@@ -230,7 +231,8 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_space,  spawn,      	   SHCMD(KEYBOARD_SCRIPT) },
 	{ MODKEY|ALTKEY,		XK_period, spawn,	   SHCMD(EMOJI_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_s,  	   spawn,	   SHCMD(SCREENSHOT_SCRIPT) },
-	{ MODKEY|ShiftMask,		XK_p, 	   spawn,          SHCMD(PASSWORD_MANAGER_SCRIPT) },
+	{ MODKEY|ShiftMask,		XK_m, 	   spawn,          SHCMD(MONITOR_MANAGER_SCRIPT) },
+	{ MODKEY|ShiftMask,		XK_d, 	   spawn,          SHCMD(PASSWORD_MANAGER_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_e, 	   spawn,          SHCMD(EXECUTE_SCRIPTS_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_r, 	   spawn,          SHCMD(RECORD_SCRIPT) },
 	{ ControlMask|ShiftMask|ALTKEY, XK_Delete, spawn,	   SHCMD("killall Xorg") },
