@@ -231,6 +231,13 @@ he establecido.
   diferentes acciones por regiones en las cuales se da
   click.
 
+### dwm-sticky
+- Parcheado como un mejor manejo para tener una ventana en
+  todas las etiquetas.
+- Además, se modificó la función `focus()` de tal manera que
+  el enfoque no se aplica automáticamente a las ventanas en
+  todas las etiquetas.
+
 ## Combinaciones de teclas (keybindings)
 
 | Teclas | Descripción |
@@ -244,6 +251,7 @@ he establecido.
 |`Mod + S`              |   Ir a la etiqueta de la ventana activa (útil con Mod+0)|
 |**Ventanas**
 |`Mod + Shift + [1..9]` |   Enviar la ventana activa a la etiqueta [1..9]|
+|`Mod + Shift + 0`      |   Enviar/regresar la ventana a/de todas las etiquetas (modo sticky)|
 |`Mod + J`              |   Cambiar el enfoque a la siguiente ventana|
 |`Mod + K`              |   Cambiar el enfoque a la anterior ventana|
 |`Mod + Shift + J`      |   Mover la ventana activa al siguiente lugar|
