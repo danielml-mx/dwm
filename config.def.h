@@ -232,7 +232,7 @@ static const Key keys[] = {
 	{ MODKEY|ALTKEY,		XK_period, spawn,	   SHCMD(EMOJI_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_s,  	   spawn,	   SHCMD(SCREENSHOT_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_m, 	   spawn,          SHCMD(MONITOR_MANAGER_SCRIPT) },
-	{ MODKEY|ShiftMask,		XK_d, 	   spawn,          SHCMD(PASSWORD_MANAGER_SCRIPT) },
+	{ MODKEY|ShiftMask,		XK_p, 	   spawn,          SHCMD(PASSWORD_MANAGER_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_e, 	   spawn,          SHCMD(EXECUTE_SCRIPTS_SCRIPT) },
 	{ MODKEY|ShiftMask,		XK_r, 	   spawn,          SHCMD(RECORD_SCRIPT) },
 	{ ControlMask|ShiftMask|ALTKEY, XK_Delete, spawn,	   SHCMD("killall Xorg") },
