@@ -94,7 +94,7 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
-#include "shift-tools.c"
+#include "shift-tools-scratchpads.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -252,6 +252,9 @@ static const Key keys[] = {
 	{ MODKEY, 	XK_Left,   	   spawn, 	   SHCMD("playerctl previous") },
 	{ 0, XF86XK_AudioNext,		   spawn,	   SHCMD("playerctl next") },
 	{ MODKEY, 	XK_Right,   	   spawn, 	   SHCMD("playerctl next") },
+	{ MODKEY,                          XK_u, scratchpad_show, {0} },
+	{ MODKEY|ShiftMask,                XK_u, scratchpad_hide, {0} },
+	{ MODKEY,                          XK_x, scratchpad_remove,{0} },
 };
 
 /* button definitions */
