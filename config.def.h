@@ -7,7 +7,9 @@
 #define KEYBOARD_SCRIPT "~/.local/bin/kb"
 #define EMOJI_SCRIPT "~/.local/bin/emoji-selector"
 #define SCREENSHOT_SCRIPT "~/.local/bin/screenshot"
-#define PASSWORD_MANAGER_SCRIPT "~/.local/bin/passmenu-custom --type -c -l 20 -p '🔑: '"
+#define PASSWORD_MANAGER_SCRIPT \
+    "~/.local/bin/passmenu-custom --type --delay 0 -c -l 20 -p '🔑: ' && " \
+    "notify-send -a 'dwm' 'OTP' \"OTP code copied to clipboard: $(xclip -selection clipboard -o)\""
 #define MONITOR_MANAGER_SCRIPT "~/.local/bin/monitor-manager"
 #define EXECUTE_SCRIPTS_SCRIPT "~/.local/bin/scripts"
 #define RECORD_SCRIPT "~/.local/bin/record"
@@ -66,10 +68,24 @@ static const unsigned int alphas[][3]      = {
     [SchemeInfoNorm]  = { OPAQUE, sidebaralpha, borderalpha },
 };
 
+/* scratchpads */
+typedef struct {
+	const char *name;
+	const void *cmd;
+} Sp;
+const char *spcmd1[] = {"tabbed", "-n", "spterm", "-g", "1440x800", "-c", "-r", "2", "st", "-w", "''", NULL };
+//const char *spcmd2[] = {"st", "-n", "spfm", "-g", "144x41", "-e", "lf", NULL };
+//const char *spcmd3[] = {"keepassxc", NULL };
+static Sp scratchpads[] = {
+	/* name          cmd  */
+	{"spterm",      spcmd1},
+	//{"spranger",    spcmd2},
+	//{"keepassxc",   spcmd3},
+};
 
 /* tagging */
-static const char *tags[] = { "", "󰈹", "", "󰈙", "󰐨", "", "󰕧", "󰩹", "" };
-static const char *tagsalt[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+static const char *tagsalt[] = { "", "󰈹", "", "󰈙", "󰐨", "", "󰕧", "󰩹", "" };
 static const int momentaryalttags = 0; /* 1 means alttags will show only when key is held down*/
 
 static const Rule rules[] = {
@@ -82,7 +98,10 @@ static const Rule rules[] = {
 	{ "Firefox",  NULL,       NULL,            1 << 8,    0,          0,          -1,        -1 },
 	{ "St",       NULL,       NULL,            0,         0,          1,           0,        -1 },
 	{ NULL,       NULL,       "Event Tester",  0,         0,          0,           1,        -1 }, /* xev */
-	{ "tabbed",   NULL,       NULL,            0,         0,          1,           -1,       -1 },
+	{ "tabbed",   NULL,       NULL,            0,         0,          1,          -1,        -1 },
+	{ "tabbed",   "spterm",   NULL,		   SPTAG(0),  1,          1,          -1,        -1 },
+	{ NULL,	      "spfm",     NULL,		   SPTAG(1),  1,          0,           1,        -1 },
+	{ NULL,	      "keepassxc",NULL,		   SPTAG(2),  0,          0,           1,        -1 },
 };
 
 /* layout(s) */
@@ -94,7 +113,8 @@ static const int lockfullscreen = 1; /* 1 will force focus on the fullscreen win
 
 #define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
-#include "shift-tools.c"
+//#include "shift-tools.c"
+#include "shift-tools-scratchpads.c"
 
 static const Layout layouts[] = {
 	/* symbol     arrange function */
@@ -209,12 +229,15 @@ static const Key keys[] = {
 	{ MODKEY,                       XK_0,      view,           {.ui = ~0 } },
 	//{ MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
 	{ MODKEY|ShiftMask,             XK_0,      togglesticky,   {0} },
-	{ MODKEY,                       XK_s,      winview,        {0} },
+	//{ MODKEY,                       XK_s,      winview,        {0} },
 	{ MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
 	{ MODKEY,                       XK_period, focusmon,       {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_comma,  tagmon,         {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_period, tagmon,         {.i = +1 } },
 	{ MODKEY,                       XK_n,      togglealttag,   {0} },
+	{ MODKEY,            		XK_s,  	   togglescratch,  {.ui = 0 } },
+	//{ MODKEY,            		XK_u,	   togglescratch,  {.ui = 1 } },
+	//{ MODKEY,            		XK_x,	   togglescratch,  {.ui = 2 } },
 	TAGKEYS(                        XK_1,                      0)
 	TAGKEYS(                        XK_2,                      1)
 	TAGKEYS(                        XK_3,                      2)
@@ -245,13 +268,13 @@ static const Key keys[] = {
 	{ 0, XF86XK_MonBrightnessUp,	   spawn,	   SHCMD("light -A 10 && pkill -RTMIN+3 dwmblocks") },
 	{ 0, XF86XK_AudioRaiseVolume,	   spawn, 	   SHCMD("pamixer -u && pamixer -i 5 && pkill -RTMIN+4 dwmblocks")},
 	{ 0, XF86XK_AudioLowerVolume,	   spawn, 	   SHCMD("pamixer -u && pamixer -d 5 && pkill -RTMIN+4 dwmblocks")},
-	{ 0, XF86XK_AudioMute,		   spawn, 	   SHCMD("pamixer -t 		     && pkill -RTMIN+4 dwmblocks")},
-	{ 0, XF86XK_AudioPlay,		   spawn, 	   SHCMD("playerctl play-pause") },
-	{ MODKEY, 	XK_Down,   	   spawn, 	   SHCMD("playerctl play-pause") },
-	{ 0, XF86XK_AudioPrev, 		   spawn,	   SHCMD("playerctl previous") },
-	{ MODKEY, 	XK_Left,   	   spawn, 	   SHCMD("playerctl previous") },
-	{ 0, XF86XK_AudioNext,		   spawn,	   SHCMD("playerctl next") },
-	{ MODKEY, 	XK_Right,   	   spawn, 	   SHCMD("playerctl next") },
+	{ 0, XF86XK_AudioMute,		       spawn, 	   SHCMD("pamixer -t 		     && pkill -RTMIN+4 dwmblocks")},
+	{ 0, XF86XK_AudioPlay,		       spawn, 	   SHCMD("playerctl -i mpv play-pause") },
+	{ MODKEY, 	XK_Down,   	           spawn, 	   SHCMD("playerctl -i mpv play-pause") },
+	{ 0, XF86XK_AudioPrev, 		       spawn,	   SHCMD("playerctl -i mpv previous") },
+	{ MODKEY, 	XK_Left,   	           spawn, 	   SHCMD("playerctl -i mpv previous") },
+	{ 0, XF86XK_AudioNext,		       spawn,	   SHCMD("playerctl -i mpv next") },
+	{ MODKEY, 	XK_Right,   	       spawn, 	   SHCMD("playerctl -i mpv next") },
 };
 
 /* button definitions */

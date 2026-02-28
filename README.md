@@ -5,7 +5,7 @@
 ## Introducción
 
 Esta es mi versión personal de [suckless
-dwm](https://dwm.suckless.org/). Incluye un total de 30
+dwm](https://dwm.suckless.org/). Incluye un total de 31
 parches que extienden la funcionalidad de este rápido y
 minimalista manejador de ventanas. Entre las mejores
 modificaciones se encuentran las siguientes:
@@ -199,7 +199,7 @@ he establecido.
   nueva función `monocle` a `vanitygaps.c` y comenté la
   original en el archivo `dwm.c`.
 
-### shift-tools.c
+### shift-tools-scratchpads.c
 - Permite ver la anterior/siguiente etiqueta que tenga
   ventanas.
 - Las combinaciones de teclas fueron añadidas manualmente al
@@ -210,6 +210,9 @@ he establecido.
 - En realidad este parche puede hacer muchas cosas más, pero
   me he acostumbrado a sólo cambiar entre las etiquetas con
   ventanas.
+- Ahora que uso scratchpads, cambié de `shift-tools.c` a 
+  `shift-tools-scratchpads.c`. Simplemente hace que la
+   funcionalidad no se rompa.
 
 ### dwm-add-docks.patch
 - Parche muy oscuro, recuperado de las conversaciones de
@@ -237,6 +240,13 @@ he establecido.
 - Además, se modificó la función `focus()` de tal manera que
   el enfoque no se aplica automáticamente a las ventanas en
   todas las etiquetas.
+
+### dwm-scratchpads-20200414
+- Permite tener ventanas que pueden rápidamente demostradas
+  o escondidas.
+- De momento sólo tengo un scratchpad que es un `tabbed` para
+      la terminal.
+
 
 ## Combinaciones de teclas (keybindings)
 
@@ -276,6 +286,7 @@ he establecido.
 |**Programas y scripts (configurables en config.def.h)**
 |`Alt + Space`          |   Abrir dmenu|
 |`Mod + R`              |   Abrir la terminal|
+|`Mod + R`              |   Abrir/demostrar/esconder una terminal en modo scratchpad|
 |`Mod + W`              |   Abrir el navegador web|
 |`Mod + Shift + W`      |   Abrir el navegador web (modo privado)|
 |`Mod + Shift + P`      |   Selector de contraseñas|
